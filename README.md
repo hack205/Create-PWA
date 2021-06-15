@@ -1,71 +1,200 @@
-# [Start Bootstrap - Landing Page](https://startbootstrap.com/theme/landing-page/)
+Convierte tu sitio web a PWA
 
-[Landing Page](https://startbootstrap.com/theme/landing-page/) is a multipurpose landing page template for [Bootstrap](https://getbootstrap.com/) created by [Start Bootstrap](https://startbootstrap.com/).
+  ¿Qué es PWA?
 
-## Preview
+La base son páginas webs, pero utilizan tecnologías que hacen que su estética y funcionamiento se asemejen enormemente a una App nativa, por ejemplo, mediante la ejecución en segundo plano. Se accede a ellas a través de un navegador, pero se puede anclar un acceso directo en nuestro dispositivo (en la pantalla de inicio o en el menú de aplicaciones). No dependen de sistemas operativos (se ejecutan en el navegador) y van incorporando funcionalidades nativas del dispositivo.
 
-[![Landing Page Preview](https://assets.startbootstrap.com/img/screenshots/themes/landing-page.png)](https://startbootstrap.github.io/startbootstrap-landing-page/)
+![image](https://user-images.githubusercontent.com/36380066/122099695-ecd55a00-cdd7-11eb-83b9-d6582315312d.png)
 
-**[View Live Preview](https://startbootstrap.github.io/startbootstrap-landing-page/)**
 
-## Status
 
-[![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/StartBootstrap/startbootstrap-landing-page/master/LICENSE)
-[![npm version](https://img.shields.io/npm/v/startbootstrap-landing-page.svg)](https://www.npmjs.com/package/startbootstrap-landing-page)
-[![dependencies Status](https://david-dm.org/StartBootstrap/startbootstrap-landing-page/status.svg)](https://david-dm.org/StartBootstrap/startbootstrap-landing-page)
-[![devDependencies Status](https://david-dm.org/StartBootstrap/startbootstrap-landing-page/dev-status.svg)](https://david-dm.org/StartBootstrap/startbootstrap-landing-page?type=dev)
+  * Lo que necesitamos es un sitio web, el cual será convertido a Progressive Web Apps
 
-## Download and Installation
+    En este caso yo tomare una simple landing page
 
-To begin using this template, choose one of the following options to get started:
+   ![image](https://user-images.githubusercontent.com/36380066/122100754-22c70e00-cdd9-11eb-96ad-d120d02485c0.png)
 
-* [Download the latest release on Start Bootstrap](https://startbootstrap.com/theme/landing-page/)
-* Install via npm: `npm i startbootstrap-landing-page`
-* Clone the repo: `git clone https://github.com/StartBootstrap/startbootstrap-landing-page.git`
-* [Fork, Clone, or Download on GitHub](https://github.com/StartBootstrap/startbootstrap-landing-page)
+  Añadiré 2 archivos que nos permitirán llevar ese cambio de sitio web a pwa
 
-## Usage
+  * manifest.json
+  * sw.js
 
-### Basic Usage
+----------------------------------------------------------------------------------------------------------------------------
 
-After downloading, simply edit the HTML and CSS files included with `dist` directory. These are the only files you need to worry about, you can ignore everything else! To preview the changes you make to the code, you can open the `index.html` file in your web browser.
+Manifest.json
 
-### Advanced Usage
+    {
+    "name": "Prueba Creando PWA",
+    "short_name": "Creando PWA",
+    "description": "Este es un sitio de prueba para ver la funcionalidad de una PWA",
+    "background_color": "#2B2B2B",
+    "theme_color": "#F0DB4F",
+    "orientation": "portrait", //Tenemos la posibilidad de que sea en vertical u horizontal. 
+    "display": "standalone",
+    "start_url": "./index.html", //Url de la pagina principal que cargará 
+    "scope": "./", //Ruta que nos permite determinar donde se encuentra nuestro service worker
+    "lang": "es-MX",
+    "icons": [  //Iconos que se cargarán en el almacenamiento de nustro dispositivo.
+      {
+        "src": "./assets/img/icon_1024.png",
+        "sizes": "1024x1024",
+        "type": "image/png"
+      },
+      {
+        "src": "./assets/img/bg-showcase-1.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      },
+      {
+        "src": "./assets/img/bg-showcase-2.png",
+        "sizes": "384x384",
+        "type": "image/png"
+      },
+      {
+        "src": "./assets/img/bg-showcase-3.png",
+        "sizes": "256x256",
+        "type": "image/png"
+      },
+      {
+        "src": "./assets/img/testimonials-1.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "./assets/img/testimonials-2.png",
+        "sizes": "128x128",
+        "type": "image/png"
+      },
+      {
+        "src": "./assets/img/testimonials-3.png",
+        "sizes": "96x96",
+        "type": "image/png"
+      }
+    ]
+  }
 
-Clone the source files of the theme and navigate into the theme's root directory. Run `npm install` and then run `npm start` which will open up a preview of the template in your default browser, watch for changes to core template files, and live reload the browser when changes are saved. You can view the `package.json` file to see which scripts are included.
+  ------------------------------------------------------------------------------------------------------------------
+  sw.js
 
-#### npm Scripts
 
-* `npm run build` builds the project - this builds assets, HTML, JS, and CSS into `dist`
-* `npm run build:assets` copies the files in the `src/assets/` directory into `dist`
-* `npm run build:pug` compiles the Pug located in the `src/pug/` directory into `dist`
-* `npm run build:scripts` brings the `src/js/scripts.js` file into `dist`
-* `npm run build:scss` compiles the SCSS files located in the `src/scss/` directory into `dist`
-* `npm run clean` deletes the `dist` directory to prepare for rebuilding the project
-* `npm run start:debug` runs the project in debug mode
-* `npm start` or `npm run start` runs the project, launches a live preview in your default browser, and watches for changes made to files in `src`
+    //asignar un nombre y versión al cache
+    const CACHE_NAME = 'v1_cache_Pwa',
+      urlsToCache = [
+        './',
+        'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css',
+        'https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic',
+        './css/styles.css',
+        './assets/img/icon_1024.png',
+        './assets/img/bg-showcase-1.png',
+        './assets/img/bg-showcase-2.png',
+        './assets/img/bg-showcase-3.png',
+        './assets/img/testimonials-1.png',
+        './assets/img/testimonials-2.png',
+        './assets/img/testimonials-3.png',
+        './favicon.ico'
+      ]
 
-You must have npm installed in order to use this build environment.
+    //durante la fase de instalación, generalmente se almacena en caché los activos estáticos
+    self.addEventListener('install', e => {
+      e.waitUntil(
+        caches.open(CACHE_NAME)
+          .then(cache => {
+            return cache.addAll(urlsToCache)
+              .then(() => self.skipWaiting())
+          })
+          .catch(err => console.log('Falló registro de cache', err))
+      )
+    })
 
-## Bugs and Issues
+    //una vez que se instala el SW, se activa y busca los recursos para hacer que funcione sin conexión
+    self.addEventListener('activate', e => {
+      const cacheWhitelist = [CACHE_NAME]
 
-Have a bug or an issue with this template? [Open a new issue](https://github.com/StartBootstrap/startbootstrap-landing-page/issues) here on GitHub or leave a comment on the [template overview page at Start Bootstrap](https://startbootstrap.com/theme/landing-page/).
+      e.waitUntil(
+        caches.keys()
+          .then(cacheNames => {
+            return Promise.all(
+              cacheNames.map(cacheName => {
+                //Eliminamos lo que ya no se necesita en cache
+                if (cacheWhitelist.indexOf(cacheName) === -1) {
+                  return caches.delete(cacheName)
+                }
+              })
+            )
+          })
+          // Le indica al SW activar el cache actual
+          .then(() => self.clients.claim())
+      )
+    })
 
-## About
+    //cuando el navegador recupera una url
+    self.addEventListener('fetch', e => {
+      //Responder ya sea con el objeto en caché o continuar y buscar la url real
+      e.respondWith(
+        caches.match(e.request)
+          .then(res => {
+            if (res) {
+              //recuperar del cache
+              return res
+            }
+            //recuperar de la petición a la url
+            return fetch(e.request)
+          })
+      )
+    })
 
-Start Bootstrap is an open source library of free Bootstrap templates and themes. All of the free templates and themes on Start Bootstrap are released under the MIT license, which means you can use them for any purpose, even for commercial projects.
+--------------------------------------------------------------------------------------------------------------------------------------
+Al final solo mandamos llamar nuestro archivo manifest.json en nuestra pagina principal en nuestro caso se llama index.html
 
-* <https://startbootstrap.com>
-* <https://twitter.com/SBootstrap>
+    <link rel="manifest" href="manifest.json">
+    <script>
+        //if browser support service worker
+        if('serviceWorker' in navigator) {
+          navigator.serviceWorker.register('sw.js');
+        };
+      </script>
 
-Start Bootstrap was created by and is maintained by **[David Miller](https://davidmiller.io/)**.
+---------------------------------------------------------------------------------------------------------------------------------------      
+ Nuestro archivo index.html quedaría así
 
-* <https://davidmiller.io>
-* <https://twitter.com/davidmillerhere>
-* <https://github.com/davidtmiller>
 
-Start Bootstrap is based on the [Bootstrap](https://getbootstrap.com/) framework created by [Mark Otto](https://twitter.com/mdo) and [Jacob Thorton](https://twitter.com/fat).
+     <!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <meta charset="utf-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+            <meta name="description" content="" />
+            <meta name="author" content="" />
+            <title>Landing Page - Start Bootstrap Theme</title>
+            <!-- Favicon-->
+            <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+            <!-- Bootstrap icons-->
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" type="text/css" />
+            <!-- Google fonts-->
+            <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css" />
+            <!-- Core theme CSS (includes Bootstrap)-->
+            <link href="css/styles.css" rel="stylesheet" />
+            <link rel="manifest" href="manifest.json">
+            <script>
+            //if browser support service worker
+            if('serviceWorker' in navigator) {
+              navigator.serviceWorker.register('sw.js');
+            };
+          </script>
 
-## Copyright and License
+        </head> ......
 
-Copyright 2013-2021 Start Bootstrap LLC. Code released under the [MIT](https://github.com/StartBootstrap/startbootstrap-landing-page/blob/master/LICENSE) license.
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+La estructura de mis directorios es esta:
+
+   ![image](https://user-images.githubusercontent.com/36380066/122106205-3f664480-cddf-11eb-9e58-f9cfafae6456.png)
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+El resultado es este:
+
+  ![image](https://user-images.githubusercontent.com/36380066/122108218-8d7c4780-cde1-11eb-9b5f-57acd36b31b1.png)
+
+  ![image](https://user-images.githubusercontent.com/36380066/122108292-a553cb80-cde1-11eb-8f52-72f1f690b379.png)
+
+  ![image](https://user-images.githubusercontent.com/36380066/122108513-e64be000-cde1-11eb-8072-bc8330757725.png)
