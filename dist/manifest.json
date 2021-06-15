@@ -1,0 +1,49 @@
+{
+    "name": "Prueba Creando PWA",
+    "short_name": "Creando PWA",
+    "description": "Este es un sitio de prueba para ver la funcionalidad de una PWA",
+    "background_color": "#2B2B2B",
+    "theme_color": "#F0DB4F",
+    "orientation": "portrait", 
+    "display": "standalone",
+    "start_url": "./index.html", 
+    "scope": "./", 
+    "lang": "es-MX",
+    "icons": [  
+      {
+        "src": "./assets/img/icon_1024.png",
+        "sizes": "1024x1024",
+        "type": "image/png"
+      },
+      {
+        "src": "./assets/img/bg-showcase-1.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      },
+      {
+        "src": "./assets/img/bg-showcase-2.png",
+        "sizes": "384x384",
+        "type": "image/png"
+      },
+      {
+        "src": "./assets/img/bg-showcase-3.png",
+        "sizes": "256x256",
+        "type": "image/png"
+      },
+      {
+        "src": "./assets/img/testimonials-1.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "./assets/img/testimonials-2.png",
+        "sizes": "128x128",
+        "type": "image/png"
+      },
+      {
+        "src": "./assets/img/testimonials-3.png",
+        "sizes": "96x96",
+        "type": "image/png"
+      }
+    ]
+  }
